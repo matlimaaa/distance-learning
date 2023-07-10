@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  api_distance_learning:
+    build:
+      args:
+        user: lima
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: matlimaaa/api-distance-learning
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - redis
+      - queue
+    restart: unless-stopped
+    networks:
+      - apidistancelearning
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - 8939:80
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/:/etc/nginx/conf.d/
+    networks:
+      - apidistancelearning
+
+  mysql:
+    image: mysql:5.7.22
+    restart: always
+    ports:
+      - 3388:3306
+    volumes:
+      - ./.docker/mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - apidistancelearning
+
+  redis:
+    image: redis:latest
+    networks:
+      - apidistancelearning
+
+  queue:
+    build:
+      args:
+        user: dev
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    command: "php artisan queue:work"
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - redis
+    networks:
+      - apidistancelearning
+
+
+networks:
+  apidistancelearning:
+    driver: bridge
