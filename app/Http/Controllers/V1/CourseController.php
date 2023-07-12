@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\StoreCourseValidate;
 use App\Http\Resources\V1\CourseResource;
 use App\Services\V1\Course\CourseServiceContract;
 use Illuminate\Http\Request;
@@ -32,9 +33,11 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCourseValidate $request)
     {
-        //
+        $course = $this->courseService->store($request->validated());
+
+        return new CourseResource($course);
     }
 
     /**
