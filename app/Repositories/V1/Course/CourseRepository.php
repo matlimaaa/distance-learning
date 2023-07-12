@@ -24,4 +24,12 @@ class CourseRepository implements CourseRepositoryContract
     {
         return $this->course->get();
     }
+    
+    /**
+     * @inheritDoc
+     */
+    public function store(array $data): Course
+    {
+        return $this->course->create($data);
+    }
 }
