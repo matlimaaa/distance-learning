@@ -32,4 +32,12 @@ class CourseRepository implements CourseRepositoryContract
     {
         return $this->course->create($data);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCourseByUuid(string $uuid): Course
+    {
+        return $this->course->where('uuid', $uuid)->firstOrFail();
+    }
 }
