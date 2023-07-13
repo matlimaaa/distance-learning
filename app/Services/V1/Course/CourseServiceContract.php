@@ -29,4 +29,12 @@ interface CourseServiceContract
      * @return Course
      */
     public function getCourse(string $uuid): Course;
+
+    /**
+     * Undocumented function
+     *
+     * @param string $uuid
+     * @return void
+     */
+    public function destroy(string $uuid): void;
 }

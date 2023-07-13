@@ -7,6 +7,7 @@ use App\Http\Requests\V1\StoreCourseValidate;
 use App\Http\Resources\V1\CourseResource;
 use App\Services\V1\Course\CourseServiceContract;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CourseController extends Controller
 {
@@ -46,7 +47,7 @@ class CourseController extends Controller
     public function show(string $uuid)
     {
         $course = $this->courseService->getCourse($uuid);
-        
+
         return new CourseResource($course);
     }
 
@@ -61,8 +62,10 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $uuid)
     {
-        //
+        $course = $this->courseService->destroy($uuid);
+        
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }

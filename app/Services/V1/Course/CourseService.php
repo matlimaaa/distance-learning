@@ -41,4 +41,12 @@ class CourseService implements CourseServiceContract
     {
         return $this->courseRepository->getCourseByUuid($uuid);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function destroy(string $uuid): void
+    {
+        $this->courseRepository->deleteCourseByUuid($uuid);
+    }
 }

@@ -40,4 +40,13 @@ class CourseRepository implements CourseRepositoryContract
     {
         return $this->course->where('uuid', $uuid)->firstOrFail();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteCourseByUuid(string $uuid): void
+    {
+        $course = $this->getCourseByUuid($uuid);
+        $course->delete();
+    }
 }

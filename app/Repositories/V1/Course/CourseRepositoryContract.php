@@ -29,4 +29,12 @@ interface CourseRepositoryContract
      * @return Course
      */
     public function getCourseByUuid(string $uuid): Course;
+
+    /**
+     * Delete course by uuid
+     *
+     * @param string $uuid
+     * @return void
+     */
+    public function deleteCourseByUuid(string $uuid): void;
 }
