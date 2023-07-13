@@ -6,8 +6,8 @@ use App\Http\Controllers\V1\{
 use Illuminate\Support\Facades\Route;
 
 Route::get('/courses', [CourseController::class, 'index']);
-
 Route::post('/courses', [CourseController::class, 'store']);
+Route::get('/courses/{uuid}', [CourseController::class, 'show']);
 
 Route::get('/', function () {
     return response()->json([

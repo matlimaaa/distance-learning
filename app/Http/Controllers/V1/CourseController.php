@@ -43,9 +43,11 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $uuid)
     {
-        //
+        $course = $this->courseService->getCourse($uuid);
+        
+        return new CourseResource($course);
     }
 
     /**
