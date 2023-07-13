@@ -10,6 +10,7 @@ Route::name('courses.')->prefix('courses')->group(function () {
     Route::post('/', [CourseController::class, 'store'])->name('store');
     Route::get('/{uuid}', [CourseController::class, 'show'])->name('show');
     Route::delete('/{uuid}', [CourseController::class, 'destroy'])->name('destroy');
+    Route::put('/{uuid}', [CourseController::class, 'update'])->name('update');
 });
 
 Route::get('/', function () {

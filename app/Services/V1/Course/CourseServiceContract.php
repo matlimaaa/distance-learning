@@ -31,10 +31,19 @@ interface CourseServiceContract
     public function getCourse(string $uuid): Course;
 
     /**
-     * Undocumented function
+     * Delete a course
      *
      * @param string $uuid
      * @return void
      */
     public function destroy(string $uuid): void;
+
+    /**
+     * Update course
+     *
+     * @param string $uuid
+     * @param array $attributes
+     * @return void
+     */
+    public function update(string $uuid, array $attributes): void;
 }

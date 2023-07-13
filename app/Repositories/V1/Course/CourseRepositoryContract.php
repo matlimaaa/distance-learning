@@ -37,4 +37,13 @@ interface CourseRepositoryContract
      * @return void
      */
     public function deleteCourseByUuid(string $uuid): void;
+
+    /**
+     * Update course
+     *
+     * @param string $uuid
+     * @param array $attributes
+     * @return void
+     */
+    public function updateCourse(string $uuid, array $attributes): void;
 }

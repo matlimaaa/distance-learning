@@ -49,4 +49,13 @@ class CourseRepository implements CourseRepositoryContract
         $course = $this->getCourseByUuid($uuid);
         $course->delete();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function updateCourse(string $uuid, array $attributes): void
+    {
+        $course = $this->getCourseByUuid($uuid);
+        $course->update($attributes);
+    }
 }

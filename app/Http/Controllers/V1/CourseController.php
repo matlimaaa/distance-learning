@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\StoreCourseValidate;
+use App\Http\Requests\V1\StoreUpdateCourseValidate;
 use App\Http\Resources\V1\CourseResource;
 use App\Services\V1\Course\CourseServiceContract;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CourseController extends Controller
@@ -34,7 +33,7 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCourseValidate $request)
+    public function store(StoreUpdateCourseValidate $request)
     {
         $course = $this->courseService->store($request->validated());
 
@@ -54,9 +53,11 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreUpdateCourseValidate $request, string $uuid)
     {
-        //
+        $course = $this->courseService->update($uuid, $request->validated());
+
+        return response()->json(['message' => 'updated'], Response::HTTP_OK);
     }
 
     /**
