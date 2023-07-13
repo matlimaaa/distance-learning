@@ -33,4 +33,12 @@ class CourseService implements CourseServiceContract
     {
         return $this->courseRepository->store($data);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCourse(string $uuid): Course
+    {
+        return $this->courseRepository->getCourseByUuid($uuid);
+    }
 }
