@@ -14,4 +14,9 @@ class Module extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }
