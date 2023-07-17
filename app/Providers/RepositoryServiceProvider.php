@@ -6,6 +6,10 @@ use App\Repositories\V1\Course\{
     CourseRepository,
     CourseRepositoryContract
 };
+use App\Repositories\V1\Module\{
+    ModuleRepository,
+    ModuleRepositoryContract
+};
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -18,6 +22,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             CourseRepositoryContract::class,
             CourseRepository::class
+        );
+        $this->app->bind(
+            ModuleRepositoryContract::class,
+            ModuleRepository::class
         );
     }
 
