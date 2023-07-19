@@ -18,10 +18,11 @@ interface ModuleRepositoryContract
     /**
      * store
      *
+     * @param int $courseId
      * @param array $data
      * @return Module
      */
-    public function store(array $data): Module;
+    public function store(int $courseId, array $data): Module;
 
     /**
      * getModuleByCourse
@@ -43,11 +44,12 @@ interface ModuleRepositoryContract
     /**
      * updateModule
      *
+     * @param int $courseId
      * @param string $moduleUuid
      * @param array $data
      * @return bool
      */
-    public function updateModule(string $moduleUuid, array $data): bool;
+    public function updateModule(int $courseId, string $moduleUuid, array $data): bool;
 
     /**
      * destroyModule

@@ -25,8 +25,10 @@ class ModuleRepository implements ModuleRepositoryContract
     /**
      * @inheritDoc
      */
-    public function store(array $data): Module
+    public function store(int $courseId, array $data): Module
     {
+        $data['course_id'] = $courseId;
+
         return $this->module->create($data);
     }
 
@@ -52,8 +54,10 @@ class ModuleRepository implements ModuleRepositoryContract
     /**
      * @inheritDoc
      */
-    public function updateModule(string $moduleUuid, array $data): bool
+    public function updateModule(int $courseId, string $moduleUuid, array $data): bool
     {
+        $data['course_id'] = $courseId;
+
         $module = $this->getModuleByUuid($moduleUuid);
 
         return $module->update($data);
