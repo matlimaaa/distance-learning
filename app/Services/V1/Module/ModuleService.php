@@ -28,9 +28,9 @@ class ModuleService implements ModuleServiceContract
         return $this->moduleRepository->getModulesByCourse($course->id);
     }
 
-    public function store(array $data): Module
+    public function store(array $data, string $courseUuid): Module
     {
-        $course = $this->courseService->getCourse($data['course']);
+        $course = $this->courseService->getCourse($courseUuid);
 
         return $this->moduleRepository->store($course->id, $data);
     }
@@ -43,9 +43,9 @@ class ModuleService implements ModuleServiceContract
 
     }
 
-    public function updateModule(string $moduleUuid, array $data): bool
+    public function updateModule(array $data, string $courseUuid, string $moduleUuid): bool
     {
-        $course = $this->courseService->getCourse($data['course']);
+        $course = $this->courseService->getCourse($courseUuid);
 
         return $this->moduleRepository->updateModule($course->id, $moduleUuid, $data);
     }

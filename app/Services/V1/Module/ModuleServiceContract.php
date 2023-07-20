@@ -19,9 +19,10 @@ interface ModuleServiceContract
      * store
      *
      * @param array $data
+     * @param string $course
      * @return Module
      */
-    public function store(array $data): Module;
+    public function store(array $data, string $course): Module;
 
     /**
      * getModuleByCourse
@@ -35,11 +36,12 @@ interface ModuleServiceContract
     /**
      * updateModule
      *
+     * @param string $courseUuid
      * @param string $moduleUuid
      * @param array $data
      * @return bool
      */
-    public function updateModule(string $moduleUuid, array $data): bool;
+    public function updateModule(array $data, string $courseUuid, string $moduleUuid): bool;
 
     /**
      * destroyModule
