@@ -23,7 +23,7 @@ class ModuleRepository implements ModuleRepositoryContract
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function store(int $courseId, array $data): Module
     {
@@ -33,7 +33,7 @@ class ModuleRepository implements ModuleRepositoryContract
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getModuleByCourse(int $courseId, string $moduleUuid): Module
     {
@@ -44,7 +44,7 @@ class ModuleRepository implements ModuleRepositoryContract
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getModuleByUuid(string $moduleUuid): Module
     {
@@ -52,7 +52,7 @@ class ModuleRepository implements ModuleRepositoryContract
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function updateModule(int $courseId, string $moduleUuid, array $data): bool
     {
@@ -64,7 +64,7 @@ class ModuleRepository implements ModuleRepositoryContract
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function destroyModule(string $moduleUuid): bool|null
     {
