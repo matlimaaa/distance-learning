@@ -12,7 +12,8 @@ class Module extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name'
+        'name',
+        'course_id',
     ];
 
     public function course()
