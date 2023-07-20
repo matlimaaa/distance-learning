@@ -8,10 +8,10 @@ use Illuminate\Support\Str;
 class ModuleObserver
 {
     /**
-     * Handle the Course "creating" event.
+     * Handle the module "creating" event.
      */
-    public function creating(Module $course): void
+    public function creating(Module $module): void
     {
-        $course->uuid = strval(Str::uuid());
+        $module->uuid = strval(Str::uuid());
     }
 }
