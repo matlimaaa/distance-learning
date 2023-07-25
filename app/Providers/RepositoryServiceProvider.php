@@ -6,6 +6,10 @@ use App\Repositories\V1\Course\{
     CourseRepository,
     CourseRepositoryContract
 };
+use App\Repositories\V1\Lesson\{
+    LessonRepository,
+    LessonRepositoryContract
+};
 use App\Repositories\V1\Module\{
     ModuleRepository,
     ModuleRepositoryContract
@@ -26,6 +30,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             ModuleRepositoryContract::class,
             ModuleRepository::class
+        );
+        $this->app->bind(
+            LessonRepositoryContract::class,
+            LessonRepository::class
         );
     }
 
