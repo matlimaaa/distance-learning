@@ -6,6 +6,10 @@ use App\Services\V1\Course\{
     CourseService,
     CourseServiceContract
 };
+use App\Services\V1\Lesson\{
+    LessonService,
+    LessonServiceContract
+};
 use App\Services\V1\Module\{
     ModuleService,
     ModuleServiceContract
@@ -21,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(CourseServiceContract::class, CourseService::class);
         $this->app->bind(ModuleServiceContract::class, ModuleService::class);
+        $this->app->bind(LessonServiceContract::class, LessonService::class);
     }
 
     /**
