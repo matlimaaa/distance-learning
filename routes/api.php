@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\V1\{
     CourseController,
+    LessonController,
     ModuleController
 };
 use Illuminate\Support\Facades\Route;
@@ -15,3 +16,6 @@ Route::name('courses.')->prefix('courses')->group(function () {
 
     Route::apiResource('/{course}/modules', ModuleController::class);
 });
+
+Route::apiResource('modules/{module}/lessons', LessonController::class);
+    
