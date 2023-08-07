@@ -35,11 +35,11 @@ class LessonRepository implements LessonRepositoryContract
     /**
      * {@inheritDoc}
      */
-    public function getLessonByModule(int $moduleId, string $lessonUuid): Lesson
+    public function getLessonByModule(string $lessonUuid, int $moduleId): Lesson
     {
         return $this->lesson->where([
+            'uuid' => $lessonUuid,
             'module_id', $moduleId,
-            'uuid' => $lessonUuid
         ])->firstOrFail();
     }
 
@@ -54,7 +54,7 @@ class LessonRepository implements LessonRepositoryContract
     /**
      * {@inheritDoc}
      */
-    public function updateLesson(int $moduleId, string $lessonUuid, array $data): bool
+    public function updateLesson(array $data, string $lessonUuid, int $moduleId): bool
     {
         $data['module_id'] = $moduleId;
 

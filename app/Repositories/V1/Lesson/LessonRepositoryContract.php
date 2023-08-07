@@ -27,11 +27,11 @@ interface LessonRepositoryContract
     /**
      * getLessonByModule
      *
-     * @param int $moduleId
      * @param string $lessonUuid
+     * @param int $moduleId
      * @return Lesson
      */
-    public function getLessonByModule(int $moduleId, string $lessonUuid): Lesson;
+    public function getLessonByModule(string $lessonUuid, int $moduleId): Lesson;
     
     /**
      * getLessonByUuid
@@ -44,12 +44,12 @@ interface LessonRepositoryContract
     /**
      * updateLesson
      *
-     * @param int $moduleId
-     * @param string $lessonUuid
      * @param array $data
+     * @param string $lessonUuid
+     * @param int $moduleId
      * @return bool
      */
-    public function updateLesson(int $moduleId, string $lessonUuid, array $data): bool;
+    public function updateLesson(array $data, string $lessonUuid, int $moduleId): bool;
     
     /**
      * destroyLesson
