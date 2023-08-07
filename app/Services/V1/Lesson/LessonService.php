@@ -4,6 +4,7 @@ namespace App\Services\V1\Lesson;
 
 use App\Models\Lesson;
 use App\Repositories\V1\Lesson\LessonRepositoryContract;
+use App\Repositories\V1\Module\ModuleRepositoryContract;
 use Illuminate\Support\Collection;
 
 class LessonService implements LessonServiceContract
@@ -15,31 +16,38 @@ class LessonService implements LessonServiceContract
      */
     public function __construct(
         protected LessonRepositoryContract $lessonRepository,
+        protected ModuleRepositoryContract $moduleRepository,
     ) {
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getLessonsByModule(int $moduleId): Collection
+    public function getLessonsByModule(string $moduleUuid): Collection
     {
-        return $this->lessonRepository->getLessonsByModule($moduleId);
+        $module = $this->moduleRepository->getModuleByUuid($moduleUuid);
+
+        return $this->lessonRepository->getLessonsByModule($module->id);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function store(int $moduleId, array $data): Lesson
+    public function store(array $data, string $moduleUuid): Lesson
     {
-        return $this->lessonRepository->store($moduleId, $data);
+        $module = $this->moduleRepository->getModuleByUuid($moduleUuid);
+
+        return $this->lessonRepository->store($module->id, $data);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getLessonByModule(int $moduleId, string $lessonUuid): Lesson
+    public function getLessonByModule(string $lessonUuid, string $moduleUuid): Lesson
     {
-        return $this->lessonRepository->getLessonByModule($moduleId, $lessonUuid);
+        $module = $this->moduleRepository->getModuleByUuid($moduleUuid);
+
+        return $this->lessonRepository->getLessonByModule($lessonUuid, $module->id);
     }
 
     /**
@@ -53,9 +61,11 @@ class LessonService implements LessonServiceContract
     /**
      * {@inheritDoc}
      */
-    public function updateLesson(int $moduleId, string $lessonUuid, array $data): bool
+    public function updateLesson(array $data, string $lessonUuid, string $moduleUuid): bool
     {
-        return $this->lessonRepository->updateLesson($moduleId, $lessonUuid, $data);
+        $module = $this->moduleRepository->getModuleByUuid($moduleUuid);
+
+        return $this->lessonRepository->updateLesson($data, $lessonUuid, $module->id);
     }
 
     /**

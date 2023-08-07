@@ -10,28 +10,28 @@ interface LessonServiceContract
     /**
      * Get lessons by module
      *
-     * @param int $moduleId
+     * @param string $moduleUuid
      * @return Collection
      */
-    public function getLessonsByModule(int $moduleId): Collection;
+    public function getLessonsByModule(string $moduleUuid): Collection;
 
     /**
      * store
      *
-     * @param int $moduleId
      * @param array $data
+     * @param string $moduleUuid
      * @return Lesson
      */
-    public function store(int $moduleId, array $data): Lesson;
+    public function store(array $data, string $moduleUuid): Lesson;
 
     /**
      * getLessonByModule
      *
-     * @param int $moduleId
      * @param string $lessonUuid
+     * @param string $moduleUuid
      * @return Lesson
      */
-    public function getLessonByModule(int $moduleId, string $lessonUuid): Lesson;
+    public function getLessonByModule(string $lessonUuid, string $moduleUuid): Lesson;
 
     /**
      * Get lesson by uuid
@@ -44,12 +44,12 @@ interface LessonServiceContract
     /**
      * Update lesson
      *
-     * @param int $moduleId
-     * @param string $lessonUuid
      * @param array $data
+     * @param string $lessonUuid
+     * @param string $moduleUuid
      * @return bool
      */
-    public function updateLesson(int $moduleId, string $lessonUuid, array $data): bool;
+    public function updateLesson(array $data, string $lessonUuid, string $moduleUuid): bool;
 
     /**
      * Destroy lesson
