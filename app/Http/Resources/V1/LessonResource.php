@@ -14,6 +14,11 @@ class LessonResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'uuid' => $this->uuid,
+            'name' => $this->name,
+            'video' => $this->video,
+            'description' => $this->description,
+        ];
     }
 }
