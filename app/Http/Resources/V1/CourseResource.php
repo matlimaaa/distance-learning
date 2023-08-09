@@ -16,7 +16,7 @@ class CourseResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'uui' => $this->uuid,
+            'uuid' => $this->uuid,
             'name' => $this->name,
             'description' => $this->description,
             'date' => Carbon::make($this->created_at)->format('Y-m-d')
