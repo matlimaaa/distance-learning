@@ -38,7 +38,7 @@ class ModuleRepository implements ModuleRepositoryContract
     public function getModuleByCourse(int $courseId, string $moduleUuid): Module
     {
         return $this->module->where([
-            'course_id', $courseId,
+            'course_id' => $courseId,
             'uuid' => $moduleUuid
         ])->firstOrFail();
     }
