@@ -19,7 +19,7 @@ class LessonRepository implements LessonRepositoryContract
 
     public function getLessonsByModule(int $courseId): Collection
     {
-        return $this->lesson->where('course_id', $courseId)->get();
+        return $this->lesson->where('module_id', $courseId)->get();
     }
 
     /**
@@ -39,7 +39,7 @@ class LessonRepository implements LessonRepositoryContract
     {
         return $this->lesson->where([
             'uuid' => $lessonUuid,
-            'module_id', $moduleId,
+            'module_id' => $moduleId,
         ])->firstOrFail();
     }
 
