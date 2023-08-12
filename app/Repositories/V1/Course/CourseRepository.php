@@ -22,7 +22,9 @@ class CourseRepository implements CourseRepositoryContract
      */
     public function getAllCourses(): Collection
     {
-        return $this->course->get();
+        return $this->course
+            ->with('modules.lessons')
+            ->get();
     }
     
     /**
@@ -36,9 +38,12 @@ class CourseRepository implements CourseRepositoryContract
     /**
      * @inheritDoc
      */
-    public function getCourseByUuid(string $uuid): Course
+    public function getCourseByUuid(string $uuid, bool $loadRelationships = true): Course
     {
-        return $this->course->where('uuid', $uuid)->firstOrFail();
+        return $this->course
+            ->where('uuid', $uuid)
+            ->with([$loadRelationships ? 'modules.lessons': ''])
+            ->firstOrFail();
     }
 
     /**
@@ -46,7 +51,7 @@ class CourseRepository implements CourseRepositoryContract
      */
     public function deleteCourseByUuid(string $uuid): void
     {
-        $course = $this->getCourseByUuid($uuid);
+        $course = $this->getCourseByUuid($uuid, false);
         $course->delete();
     }
 
@@ -55,7 +60,7 @@ class CourseRepository implements CourseRepositoryContract
      */
     public function updateCourse(string $uuid, array $attributes): void
     {
-        $course = $this->getCourseByUuid($uuid);
+        $course = $this->getCourseByUuid($uuid, false);
         $course->update($attributes);
     }
 }
