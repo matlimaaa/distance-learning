@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Course;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class CourseObserver
@@ -13,5 +14,21 @@ class CourseObserver
     public function creating(Course $course): void
     {
         $course->uuid = strval(Str::uuid());
+    }
+
+    /**
+     * Handle the Course "updating" event.
+     */
+    public function updating(): void
+    {
+        Cache::forget('all_couses');
+    }
+
+    /**
+     * Handle the Course "deleting" event.
+     */
+    public function deleting(): void
+    {
+        Cache::forget('all_couses');
     }
 }
