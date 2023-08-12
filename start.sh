@@ -7,6 +7,11 @@ sed -i 's/DB_DATABASE=.*/DB_DATABASE=distance_learning/' .env
 sed -i 's/DB_USERNAME=.*/DB_USERNAME=root/' .env
 sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=root/' .env
 
+sed -i 's/CACHE_DRIVER=.*/CACHE_DRIVER=redis/' .env
+sed -i 's/QUEUE_CONNECTION=.*/QUEUE_CONNECTION=redis/' .env
+sed -i 's/SESSION_DRIVER=.*/SESSION_DRIVER=redis/' .env
+sed -i 's/REDIS_HOST=.*/REDIS_HOST=redis/' .env
+
 docker-compose up -d
 
 docker-compose exec api_distance_learning composer install
