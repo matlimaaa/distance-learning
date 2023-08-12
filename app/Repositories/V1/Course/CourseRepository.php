@@ -4,6 +4,7 @@ namespace App\Repositories\V1\Course;
 
 use App\Models\Course;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class CourseRepository implements CourseRepositoryContract
 {
@@ -22,9 +23,11 @@ class CourseRepository implements CourseRepositoryContract
      */
     public function getAllCourses(): Collection
     {
-        return $this->course
-            ->with('modules.lessons')
-            ->get();
+        return Cache::remember('all_couses', 60 * 60, function () {
+            return $this->course
+                ->with('modules.lessons')
+                ->get();
+        });
     }
     
     /**
@@ -40,10 +43,13 @@ class CourseRepository implements CourseRepositoryContract
      */
     public function getCourseByUuid(string $uuid, bool $loadRelationships = true): Course
     {
-        return $this->course
-            ->where('uuid', $uuid)
-            ->with([$loadRelationships ? 'modules.lessons': ''])
-            ->firstOrFail();
+        $query = $this->course->where('uuid', $uuid);
+
+        if ($loadRelationships) {
+            $query->with('modules.lessons');
+        }
+
+        return $query->firstOrFail();
     }
 
     /**
