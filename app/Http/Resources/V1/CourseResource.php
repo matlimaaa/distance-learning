@@ -19,7 +19,8 @@ class CourseResource extends JsonResource
             'uuid' => $this->uuid,
             'name' => $this->name,
             'description' => $this->description,
-            'date' => Carbon::make($this->created_at)->format('Y-m-d')
+            'date' => Carbon::make($this->created_at)->format('Y-m-d'),
+            'modules' => ModuleResource::collection($this->whenLoaded('modules')),
         ];
     }
 }
