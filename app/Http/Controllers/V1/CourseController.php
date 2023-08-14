@@ -55,7 +55,7 @@ class CourseController extends Controller
      */
     public function update(StoreUpdateCourseValidate $request, string $uuid)
     {
-        $course = $this->courseService->update($uuid, $request->validated());
+        $this->courseService->update($uuid, $request->validated());
 
         return response()->json(['message' => 'updated'], Response::HTTP_OK);
     }
@@ -65,7 +65,7 @@ class CourseController extends Controller
      */
     public function destroy(string $uuid)
     {
-        $course = $this->courseService->destroy($uuid);
+        $this->courseService->destroy($uuid);
         
         return response()->json([], Response::HTTP_NO_CONTENT);
     }
