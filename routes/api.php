@@ -18,4 +18,3 @@ Route::name('courses.')->prefix('courses')->group(function () {
 });
 
 Route::apiResource('modules/{module}/lessons', LessonController::class);
-    

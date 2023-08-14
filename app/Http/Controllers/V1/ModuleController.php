@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdateModule;
 use App\Http\Requests\V1\StoreUpdateModuleValidate;
 use App\Http\Resources\V1\ModuleResource;
 use App\Services\V1\Module\ModuleServiceContract;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ModuleController extends Controller
