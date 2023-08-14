@@ -32,6 +32,7 @@ class StoreUpdateCourseValidate extends FormRequest
             ],
             'description' => [
                 'nullable',
+                'string',
                 'min:3',
                 'max:9999',
             ]
