@@ -13,17 +13,24 @@ class ModuleControllerTest extends TestCase
 {
     use WithFaker;
 
+    private Course $course;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->course = Course::factory()->create();
+    }
+
     public function testGetAllModules(): void
     {
-        $course = Course::factory()->create();
-
-        Module::factory(5)->for($course)->create();
+        Module::factory(5)->for($this->course)->create();
 
         $response = $this->getJson(
             route(
                 'courses.modules.index',
                 [
-                    'course' => $course->uuid
+                    'course' => $this->course->uuid
                 ],
             )
         );
@@ -40,13 +47,11 @@ class ModuleControllerTest extends TestCase
 
     public function testGetNotFoundModule(): void
     {
-        $course = Course::factory()->create();
-
         $response = $this->getJson(
             route(
                 'courses.modules.show',
                 [
-                    'course' => $course->uuid,
+                    'course' => $this->course->uuid,
                     'module' => $this->faker->uuid(),
                 ]
             )
@@ -57,15 +62,13 @@ class ModuleControllerTest extends TestCase
 
     public function testGetModuleSuccessfully(): void
     {
-        $course = Course::factory()->create();
-
-        $module = Module::factory()->for($course)->create();
+        $module = Module::factory()->for($this->course)->create();
 
         $response = $this->getJson(
             route(
                 'courses.modules.show',
                 [
-                    'course' => $course->uuid,
+                    'course' => $this->course->uuid,
                     'module' => $module->uuid,
                 ]
             )
@@ -93,12 +96,10 @@ class ModuleControllerTest extends TestCase
     #[DataProvider('inputDataProvider')]
     public function testValidateErrorWhenTryToCreateANewModule(mixed $name): void
     {
-        $course = Course::factory()->create();
-
         $response = $this->postJson(
             route(
                 'courses.modules.store',
-                ['course' => $course->uuid],
+                ['course' => $this->course->uuid],
             ),
             [
                 'name' => $name,
@@ -110,12 +111,10 @@ class ModuleControllerTest extends TestCase
 
     public function testValidationErrorWhenITryToUploadAnImageAsAModuleName(): void
     {
-        $course = Course::factory()->create();
-
         $response = $this->postJson(
             route(
                 'courses.modules.store',
-                ['course' => $course->uuid],
+                ['course' => $this->course->uuid],
             ),
             [
                 'name' => UploadedFile::fake()->image('image.png'),
@@ -127,12 +126,10 @@ class ModuleControllerTest extends TestCase
 
     public function testCreateANewModuleSucessfully(): void
     {
-        $course = Course::factory()->create();
-
         $response = $this->postJson(
             route(
                 'courses.modules.store',
-                ['course' => $course->uuid],
+                ['course' => $this->course->uuid],
             ),
             [
                 'name' => $this->faker->name(),
@@ -151,15 +148,13 @@ class ModuleControllerTest extends TestCase
     #[DataProvider('inputDataProvider')]
     public function testValidateErrorWhenTryToUpdateModule(mixed $name): void
     {
-        $course = Course::factory()->create();
-
-        $module = Module::factory()->for($course)->create();
+        $module = Module::factory()->for($this->course)->create();
 
         $response = $this->putJson(
             route(
                 'courses.modules.update',
                 [
-                    'course' => $course->uuid,
+                    'course' => $this->course->uuid,
                     'module' => $module->uuid,
                 ],
             ),
@@ -173,15 +168,13 @@ class ModuleControllerTest extends TestCase
 
     public function testUpdateModuleSuccessfullly(): void
     {
-        $course = Course::factory()->create();
-
-        $module = Module::factory()->for($course)->create();
+        $module = Module::factory()->for($this->course)->create();
 
         $response = $this->putJson(
             route(
                 'courses.modules.update',
                 [
-                    'course' => $course->uuid,
+                    'course' => $this->course->uuid,
                     'module' => $module->uuid,
                 ],
             ),
@@ -195,13 +188,11 @@ class ModuleControllerTest extends TestCase
 
     public function testTryToUpdateAModuleThatDoesNotExist(): void
     {
-        $course = Course::factory()->create();
-
         $response = $this->putJson(
             route(
                 'courses.modules.update',
                 [
-                    'course' => $course->uuid,
+                    'course' => $this->course->uuid,
                     'module' => $this->faker->uuid()
                 ]
             ),
@@ -215,15 +206,13 @@ class ModuleControllerTest extends TestCase
 
     public function testDeleteAModuleSuccessfullly(): void
     {
-        $course = Course::factory()->create();
-
-        $module = Module::factory()->for($course)->create();
+        $module = Module::factory()->for($this->course)->create();
 
         $response = $this->deleteJson(
             route(
                 'courses.modules.destroy',
                 [
-                    'course' => $course->uuid,
+                    'course' => $this->course->uuid,
                     'module' => $module->uuid,
                 ]
             )
@@ -234,13 +223,11 @@ class ModuleControllerTest extends TestCase
 
     public function testTryToDeleteAModuleThatDoesNotExist(): void
     {
-        $course = Course::factory()->create();
-
         $response = $this->deleteJson(
             route(
                 'courses.modules.destroy',
                 [
-                    'course' => $course->uuid,
+                    'course' => $this->course->uuid,
                     'module' => $this->faker->uuid,
                 ]
             )
