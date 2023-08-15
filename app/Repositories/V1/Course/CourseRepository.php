@@ -23,7 +23,7 @@ class CourseRepository implements CourseRepositoryContract
      */
     public function getAllCourses(): Collection
     {
-        return Cache::remember('all_couses', 60 * 60, function () {
+        return Cache::remember('all_courses', 60 * 60, function () {
             return $this->course
                 ->with('modules.lessons')
                 ->get();
