@@ -5,6 +5,7 @@ namespace Tests\Feature\V1;
 use App\Models\Course;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Cache;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
@@ -246,5 +247,14 @@ class CourseControllerTest extends TestCase
         );
 
         $response->assertNotFound();
+    }
+
+    public function testValidateCacheExistence(): void
+    {
+        Course::factory(5)->create();
+        $response = $this->getJson(route('courses.index'));
+
+        $response->assertOk();
+        $this->assertTrue(Cache::has('all_courses'));
     }
 }
