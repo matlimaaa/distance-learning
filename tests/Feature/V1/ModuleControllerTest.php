@@ -7,7 +7,6 @@ use App\Models\Module;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use PHPUnit\Framework\Attributes\DataProvider;
-
 use Tests\TestCase;
 
 class ModuleControllerTest extends TestCase
