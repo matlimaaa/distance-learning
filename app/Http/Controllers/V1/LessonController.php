@@ -25,9 +25,9 @@ class LessonController extends Controller
      */
     public function index(string $moduleUuid)
     {
-        $courses = $this->lessonService->getLessonsByModule($moduleUuid);
+        $lessons = $this->lessonService->getLessonsByModule($moduleUuid);
 
-        return LessonResource::collection($courses);
+        return LessonResource::collection($lessons);
     }
 
     /**
@@ -64,7 +64,7 @@ class LessonController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $course, string $uuid)
+    public function destroy(string $module, string $uuid)
     {
         $this->lessonService->destroyLesson($uuid);
         
