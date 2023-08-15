@@ -13,17 +13,24 @@ class LessonControllerTest extends TestCase
 {
     use WithFaker;
 
+    private Module $module;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->module = Module::factory()->forCourse()->create();
+    }
+
     public function testGetAllLessons(): void
     {
-        $module = Module::factory()->forCourse()->create();
-
-        Lesson::factory(5)->for($module)->create();
+        Lesson::factory(5)->for($this->module)->create();
 
         $response = $this->getJson(
             route(
                 'lessons.index',
                 [
-                    'module' => $module->uuid
+                    'module' => $this->module->uuid
                 ],
             )
         );
@@ -42,13 +49,11 @@ class LessonControllerTest extends TestCase
 
     public function testGetNotFoundLesson(): void
     {
-        $module = Module::factory()->forCourse()->create();
-
         $response = $this->getJson(
             route(
                 'lessons.show',
                 [
-                    'module' => $module->uuid,
+                    'module' => $this->module->uuid,
                     'lesson' => $this->faker->uuid(),
                 ]
             )
@@ -59,15 +64,13 @@ class LessonControllerTest extends TestCase
 
     public function testGetLesssonSuccessfully(): void
     {
-        $module = Module::factory()->forCourse()->create();
-
-        $lesson = Lesson::factory()->for($module)->create();
+        $lesson = Lesson::factory()->for($this->module)->create();
 
         $response = $this->getJson(
             route(
                 'lessons.show',
                 [
-                    'module' => $module->uuid,
+                    'module' => $this->module->uuid,
                     'lesson' => $lesson->uuid,
                 ]
             )
@@ -106,12 +109,10 @@ class LessonControllerTest extends TestCase
     #[DataProvider('inputDataProvider')]
     public function testValidateErrorWhenTryToCreateANewLesson(mixed $name, mixed $video, mixed $description): void
     {
-        $module = Module::factory()->forCourse()->create();
-
         $response = $this->postJson(
             route(
                 'lessons.store',
-                ['module' => $module->uuid],
+                ['module' => $this->module->uuid],
             ),
             [
                 'name' => $name,
@@ -125,12 +126,10 @@ class LessonControllerTest extends TestCase
 
     public function testValidationErrorWhenITryToUploadAnImageForCreateANewLesson(): void
     {
-        $module = Module::factory()->forCourse()->create();
-
         $response = $this->postJson(
             route(
                 'lessons.store',
-                ['module' => $module->uuid],
+                ['module' => $this->module->uuid],
             ),
             [
                 'name' => UploadedFile::fake()->image('image.png'),
@@ -156,12 +155,10 @@ class LessonControllerTest extends TestCase
 
     public function testCreateANewLessonSucessfully(): void
     {
-        $module = Module::factory()->forCourse()->create();
-
         $response = $this->postJson(
             route(
                 'lessons.store',
-                ['module' => $module->uuid],
+                ['module' => $this->module->uuid],
             ),
             [
                 'name' => $this->faker->name(),
@@ -184,15 +181,13 @@ class LessonControllerTest extends TestCase
     #[DataProvider('inputDataProvider')]
     public function testValidateErrorWhenTryToUpdateLesson(mixed $name, mixed $video, mixed $description): void
     {
-        $module = Module::factory()->forCourse()->create();
-
-        $lesson = Lesson::factory()->for($module)->create();
+        $lesson = Lesson::factory()->for($this->module)->create();
        
         $response = $this->putJson(
             route(
                 'lessons.update',
                 [
-                    'module' => $module->uuid,
+                    'module' => $this->module->uuid,
                     'lesson' => $lesson->uuid,
                 ],
             ),
@@ -208,15 +203,13 @@ class LessonControllerTest extends TestCase
 
     public function testUpdateLessonSuccessfullly(): void
     {
-        $module = Module::factory()->forCourse()->create();
-
-        $lesson = Lesson::factory()->for($module)->create();
+        $lesson = Lesson::factory()->for($this->module)->create();
        
         $response = $this->putJson(
             route(
                 'lessons.update',
                 [
-                    'module' => $module->uuid,
+                    'module' => $this->module->uuid,
                     'lesson' => $lesson->uuid,
                 ],
             ),
@@ -232,15 +225,13 @@ class LessonControllerTest extends TestCase
 
     public function testTryToUpdateALessonThatDoesNotExist(): void
     {
-        $module = Module::factory()->forCourse()->create();
-
-        Lesson::factory()->for($module)->create();
+        Lesson::factory()->for($this->module)->create();
        
         $response = $this->putJson(
             route(
                 'lessons.update',
                 [
-                    'module' => $module->uuid,
+                    'module' => $this->module->uuid,
                     'lesson' => $this->faker->uuid(),
                 ],
             ),
@@ -256,15 +247,13 @@ class LessonControllerTest extends TestCase
 
     public function testDeleteALessonSuccessfullly(): void
     {
-        $module = Module::factory()->forCourse()->create();
-
-        $lesson = Lesson::factory()->for($module)->create();
+        $lesson = Lesson::factory()->for($this->module)->create();
        
         $response = $this->deleteJson(
             route(
                 'lessons.destroy',
                 [
-                    'module' => $module->uuid,
+                    'module' => $this->module->uuid,
                     'lesson' => $lesson->uuid,
                 ],
             )
@@ -275,15 +264,13 @@ class LessonControllerTest extends TestCase
 
     public function testTryToDeleteALessonThatDoesNotExist(): void
     {
-        $module = Module::factory()->forCourse()->create();
-
-        $lesson = Lesson::factory()->for($module)->create();
+        Lesson::factory()->for($this->module)->create();
        
         $response = $this->deleteJson(
             route(
                 'lessons.destroy',
                 [
-                    'module' => $module->uuid,
+                    'module' => $this->module->uuid,
                     'lesson' => $this->faker->uuid,
                 ],
             )
