@@ -29,7 +29,7 @@ class CourseObserver
      */
     public function updating(): void
     {
-        Cache::forget('all_couses');
+        Cache::forget('all_courses');
     }
 
     /**
@@ -37,6 +37,6 @@ class CourseObserver
      */
     public function deleting(): void
     {
-        Cache::forget('all_couses');
+        Cache::forget('all_courses');
     }
 }
