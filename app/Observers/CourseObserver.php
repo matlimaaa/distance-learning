@@ -17,6 +17,14 @@ class CourseObserver
     }
 
     /**
+     * Handle the Course "creating" event.
+     */
+    public function created(): void
+    {
+        Cache::forget('all_courses');
+    }
+
+    /**
      * Handle the Course "updating" event.
      */
     public function updating(): void
