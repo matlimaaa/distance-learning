@@ -45,7 +45,7 @@ class ModuleControllerTest extends TestCase
         ]);
     }
 
-    public function testGetNotFoundModule(): void
+    public function testNotFoundModule(): void
     {
         $response = $this->getJson(
             route(
