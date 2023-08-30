@@ -51,10 +51,10 @@ class ModuleServiceTest extends TestCase
     {
         $module = Module::factory()->for($this->course)->create();
 
-        $foundedModule = $this->moduleService->getModuleByCourse($this->course->uuid, $module->uuid);
+        $moduleFound = $this->moduleService->getModuleByCourse($this->course->uuid, $module->uuid);
         
-        $this->assertInstanceOf(Module::class, $foundedModule);
+        $this->assertInstanceOf(Module::class, $moduleFound);
 
-        $this->assertEquals($module->id, $foundedModule->id);
+        $this->assertEquals($module->id, $moduleFound->id);
     }
 }
