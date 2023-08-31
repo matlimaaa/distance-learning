@@ -47,7 +47,7 @@ class LessonControllerTest extends TestCase
         ]);
     }
 
-    public function testGetNotFoundLesson(): void
+    public function testNotFoundLesson(): void
     {
         $response = $this->getJson(
             route(
