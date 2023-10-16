@@ -47,4 +47,14 @@ class CourseRepositoryTest extends TestCase
             'id' => $course->id
         ]);
     }
+
+    public function testGetCourseSuccessfully(): void
+    {
+        $course = Course::factory()->create();
+
+        $searchedCourse = $this->courseRepository->getCourseByUuid($course->uuid);
+
+        $this->assertInstanceOf(Course::class, $course);
+        $this->assertEquals($course->id, $searchedCourse->id);
+    }
 }
