@@ -1,3 +1,3 @@
 - For installation and setup of this repository clone, you can make use of the `start.sh` file.
 - Run in the terminal `./start.sh` within the root folder of the project.
-- In some systems, it may be necessary to grant execution permission, which can be done with: `chmod +x start.sh`
+- In some systems, it may be necessary to grant execution permission, which can be done with: `sudo chmod +x start.sh`
