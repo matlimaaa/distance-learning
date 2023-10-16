@@ -57,4 +57,15 @@ class CourseRepositoryTest extends TestCase
         $this->assertInstanceOf(Course::class, $course);
         $this->assertEquals($course->id, $searchedCourse->id);
     }
+
+    public function testDeleteACourseSuccessfullly(): void
+    {
+        $course = Course::factory()->create();
+
+        $this->courseRepository->deleteCourseByUuid($course->uuid);
+
+        $this->assertSoftDeleted('courses', [
+            'id' => $course->id
+        ]);
+    }
 }
