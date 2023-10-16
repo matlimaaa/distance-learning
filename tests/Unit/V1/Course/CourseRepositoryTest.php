@@ -68,4 +68,11 @@ class CourseRepositoryTest extends TestCase
             'id' => $course->id
         ]);
     }
+
+    public function testTryToDeleteACourseThatDoesNotExist(): void
+    {
+        $this->expectException(ModelNotFoundException::class);
+
+        $this->courseRepository->deleteCourseByUuid($this->faker->uuid());
+    }
 }
