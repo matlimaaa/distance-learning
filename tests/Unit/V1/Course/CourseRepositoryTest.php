@@ -75,4 +75,40 @@ class CourseRepositoryTest extends TestCase
 
         $this->courseRepository->deleteCourseByUuid($this->faker->uuid());
     }
+
+    public function testUpdateCourseSuccessfullly(): void
+    {
+        $course = Course::factory()->create();
+
+        $newName = $this->faker->unique()->name();
+
+        $this->courseRepository->updateCourse(
+            $course->uuid,
+            [
+                'name' => $newName,
+                'description' => $this->faker->sentence(),
+            ]
+        );
+
+        $this->assertDatabaseMissing('courses', [
+            'name' => $course->name
+        ]);
+        
+        $this->assertDatabaseHas('courses', [
+            'name' => $newName
+        ]);
+    }
+
+    public function testTryToUpdateACourseThatDoesNotExist(): void
+    {
+        $this->expectException(ModelNotFoundException::class);
+
+        $this->courseRepository->updateCourse(
+            $this->faker->uuid(),
+            [
+                'name' => $this->faker->unique()->name(),
+                'description' => $this->faker->sentence(),
+            ]
+        );
+    }
 }
