@@ -33,4 +33,18 @@ class CourseRepositoryTest extends TestCase
         $this->assertCount(5, $courses);
         $this->assertTrue(Cache::has('all_courses'));
     }
+
+    public function testStoreACourse()
+    {
+        $course = $this->courseRepository->store([
+            'name' => $this->faker->name(),
+            'description' => $this->faker->sentence(),
+        ]);
+
+        $this->assertInstanceOf(Course::class, $course);
+        $this->assertDatabaseCount('courses', 1);
+        $this->assertDatabaseHas('courses', [
+            'id' => $course->id
+        ]);
+    }
 }
