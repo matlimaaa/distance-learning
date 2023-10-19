@@ -39,4 +39,11 @@ class ModuleRepositoryTest extends TestCase
             $this->assertInstanceOf(Module::class, $module);
         });
     }
+
+    public function testNotFoundModule(): void
+    {
+        $this->expectException(ModelNotFoundException::class);
+
+        $this->moduleRepository->getModuleByCourse($this->course->id, $this->faker->uuid());
+    }
 }
