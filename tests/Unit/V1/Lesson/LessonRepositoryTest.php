@@ -111,4 +111,34 @@ class LessonRepositoryTest extends TestCase
             'description' => $description,
         ]);
     }
+
+    public function testTryToUpdateALessonThatDoesNotExist(): void
+    {
+        $this->expectException(ModelNotFoundException::class);
+
+        $this->lessonRepository->updateLesson(
+            [
+                'name' => $this->faker->name(),
+                'video' => $this->faker->url(),
+                'description' => $this->faker->sentence(),
+            ],
+            $this->faker->uuid,
+            $this->module->id
+        );
+    }
+
+    public function testDeleteAModuleSuccessfullly(): void
+    {
+        $lesson = Lesson::factory()->for($this->module)->create();
+
+        $result = $this->lessonRepository->destroyLesson($lesson->uuid);
+
+        $this->assertTrue($result);
+        $this->assertSoftDeleted('lessons', [
+            'id' => $lesson->id,
+            'name' => $lesson->name,
+            'video' => $lesson->video,
+            'description' => $lesson->description,
+        ]);
+    }
 }
