@@ -17,9 +17,9 @@ class LessonRepository implements LessonRepositoryContract
     ) {
     }
 
-    public function getLessonsByModule(int $courseId): Collection
+    public function getLessonsByModule(int $moduleId): Collection
     {
-        return $this->lesson->where('module_id', $courseId)->get();
+        return $this->lesson->where('module_id', $moduleId)->get();
     }
 
     /**
@@ -44,7 +44,7 @@ class LessonRepository implements LessonRepositoryContract
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} 
      */
     public function getLessonByUuid(string $lessonUuid): Lesson
     {
